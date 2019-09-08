@@ -3,15 +3,41 @@ const baseApiUrl = require("../constant").baseApiUrl;
 const frisby = require("frisby");
 const joi = frisby.Joi;
 
-const endpoint = "pokemon";
-const apiUrl = `${baseApiUrl}/${endpoint}`;
-
+const pokemonEndpoint = `${baseApiUrl}/pokemon`;
 const pokemonId = 100;
+const specificPokemonEndpoint = `${pokemonEndpoint}/${pokemonId}`;
 
-describe(`Contract test`, () => {
-  it("Validate section Pokemon ", () => {
+describe(`Validate contract test - Without passing id`, () => {
+  it("Validate JSON", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(pokemonEndpoint)
+      .expect("status", 200)
+      .expect("jsonTypesStrict", {
+        count: joi.number().required(),
+        next: joi.string().required(),
+        previous: joi.allow(null, true, false).required(),
+        results: joi.array().required()
+      });
+  });
+
+  it("Validate JSON.Results", () => {
+    return frisby
+      .get(pokemonEndpoint)
+      .expect("status", 200)
+      .expect("jsonTypesStrict", "results.*", {
+        name: joi.string().required(),
+        url: joi
+          .string()
+          .uri()
+          .required()
+      });
+  });
+});
+
+describe(`Contract test of a specific pokemon`, () => {
+  it("Validate JSON ", () => {
+    return frisby
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", {
         id: joi.number().required(),
@@ -34,9 +60,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.abilities", () => {
+  it("Validate JSON.abilities", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "abilities.*", {
         is_hidden: joi.boolean().required(),
@@ -52,9 +78,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.forms", () => {
+  it("Validate JSON.forms", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "forms.*", {
         name: joi.string().required(),
@@ -65,9 +91,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.game_indices", () => {
+  it("Validate JSON.game_indices", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "game_indices.*", {
         game_index: joi.number().required(),
@@ -82,9 +108,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.moves", () => {
+  it("Validate JSON.moves", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "moves.*", {
         move: joi.object().required(),
@@ -118,9 +144,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.stats", () => {
+  it("Validate JSON.stats", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "stats.*", {
         base_stat: joi.number().required(),
@@ -136,9 +162,9 @@ describe(`Contract test`, () => {
       });
   });
 
-  it("Validate section Pokemon.types", () => {
+  it("Validate JSON.types", () => {
     return frisby
-      .get(`${apiUrl}/${pokemonId}`)
+      .get(specificPokemonEndpoint)
       .expect("status", 200)
       .expect("jsonTypesStrict", "types.*", {
         slot: joi.number().required(),

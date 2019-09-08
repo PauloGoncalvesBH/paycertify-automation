@@ -1,14 +1,58 @@
 const baseApiUrl = require("../constant").baseApiUrl;
+const jsonFromPokemonVoltorb = require("./jsonFromPokemonVoltorb");
+const jsonFromPokemon = require("./jsonFromPokemon");
 
 const frisby = require("frisby");
 
-const pokemonId = 100;
-const pokemonEndpoint = `${baseApiUrl}/pokemon/${pokemonId}`;
+const pokemon = {
+  id: 100,
+  name: "voltorb"
+};
+const pokemonEndpoint = `${baseApiUrl}/pokemon`;
+const specificPokemonEndpointWithId = `${pokemonEndpoint}/${pokemon.id}`;
+const specificPokemonEndpointWithName = `${pokemonEndpoint}/${pokemon.name}`;
 
-describe(`Validate list content`, () => {
-  it("Validate name and url from 'abilities' list", () => {
+describe(`Validate content - Without passing id`, () => {
+  it("Validate the json response from pokemon endpoint", () => {
     return frisby
       .get(pokemonEndpoint)
+      .expect("status", 200)
+      .expect("json", jsonFromPokemon);
+  });
+
+  it("Validate if the max id is equal count", () => {
+    return frisby
+      .get(pokemonEndpoint)
+      .expect("status", 200)
+      .then(response => {
+        const count = response.json.count;
+        return frisby
+          .get(`${pokemonEndpoint}/${count}`)
+          .expect("status", 200)
+          .get(`${pokemonEndpoint}/${count + 1}`)
+          .expect("status", 404);
+      });
+  });
+});
+
+describe(`Validate list content of a specific pokemon`, () => {
+  it("Validate the content using the pokemon name", () => {
+    return frisby
+      .get(specificPokemonEndpointWithName)
+      .expect("status", 200)
+      .expect("json", jsonFromPokemonVoltorb);
+  });
+
+  it("Validate the content using the pokemon name", () => {
+    return frisby
+      .get(specificPokemonEndpointWithId)
+      .expect("status", 200)
+      .expect("json", jsonFromPokemonVoltorb);
+  });
+
+  it("Validate name and url from 'abilities' list", () => {
+    return frisby
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let abilityEndpoint = response.json.abilities[0].ability.url;
@@ -25,7 +69,7 @@ describe(`Validate list content`, () => {
 
   it("Validate name and url from 'forms' list", () => {
     return frisby
-      .get(pokemonEndpoint)
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let formsEndpoint = response.json.forms[0].url;
@@ -42,7 +86,7 @@ describe(`Validate list content`, () => {
 
   it("Validate name and url from 'game_indices' list", () => {
     return frisby
-      .get(pokemonEndpoint)
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let gameIndicesEndpoint = response.json.game_indices[0].version.url;
@@ -59,7 +103,7 @@ describe(`Validate list content`, () => {
 
   it("Validate name and url from 'moves' list", () => {
     return frisby
-      .get(pokemonEndpoint)
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let movesEndpoint = response.json.moves[0].move.url;
@@ -76,7 +120,7 @@ describe(`Validate list content`, () => {
 
   it("Validate name and url from 'stats' list", () => {
     return frisby
-      .get(pokemonEndpoint)
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let statsEndpoint = response.json.stats[0].stat.url;
@@ -93,7 +137,7 @@ describe(`Validate list content`, () => {
 
   it("Validate name and url from 'types' list", () => {
     return frisby
-      .get(pokemonEndpoint)
+      .get(specificPokemonEndpointWithId)
       .expect("status", 200)
       .then(response => {
         let typesEndpoint = response.json.types[0].type.url;
