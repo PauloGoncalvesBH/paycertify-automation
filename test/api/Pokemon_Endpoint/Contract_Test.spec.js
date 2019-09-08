@@ -8,8 +8,8 @@ const apiUrl = `${baseApiUrl}/${endpoint}`;
 
 const pokemonId = 100;
 
-describe("Contract test", () => {
-  it("GET | Pokemon ", () => {
+describe(`Contract test`, () => {
+  it("Validate section Pokemon ", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -34,7 +34,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.abilities", () => {
+  it("Validate section Pokemon.abilities", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -52,7 +52,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.forms", () => {
+  it("Validate section Pokemon.forms", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -65,7 +65,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.game_indices", () => {
+  it("Validate section Pokemon.game_indices", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -82,7 +82,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.moves", () => {
+  it("Validate section Pokemon.moves", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -118,7 +118,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.stats", () => {
+  it("Validate section Pokemon.stats", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
@@ -136,7 +136,7 @@ describe("Contract test", () => {
       });
   });
 
-  it("GET | Pokemon.types", () => {
+  it("Validate section Pokemon.types", () => {
     return frisby
       .get(`${apiUrl}/${pokemonId}`)
       .expect("status", 200)
