@@ -1,0 +1,11 @@
+{
+  "name": "paycertify-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Henrique Rocha Gonçalves <paulorochag@hotmail.com>",
+  "license": "MIT"
+}
