@@ -43,7 +43,7 @@ describe(`Validate list content of a specific pokemon`, () => {
       .expect("json", jsonFromPokemonVoltorb);
   });
 
-  it("Validate the content using the pokemon name", () => {
+  it("Validate the content using the pokemon id", () => {
     return frisby
       .get(specificPokemonEndpointWithId)
       .expect("status", 200)
