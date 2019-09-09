@@ -3,6 +3,7 @@ const jsonFromPokemonVoltorb = require("./jsonFromPokemonVoltorb");
 const jsonFromPokemon = require("./jsonFromPokemon");
 
 const frisby = require("frisby");
+const joi = frisby.Joi;
 
 const pokemon = {
   id: 100,
@@ -20,17 +21,21 @@ describe(`Validate content - Without passing id`, () => {
       .expect("json", jsonFromPokemon);
   });
 
-  it("Validate if the max id is equal count", () => {
+  it("Validate if the number of pokemons is equal count", () => {
     return frisby
       .get(pokemonEndpoint)
       .expect("status", 200)
       .then(response => {
         const count = response.json.count;
         return frisby
-          .get(`${pokemonEndpoint}/${count}`)
+          .get(`${pokemonEndpoint}?limit=${count + 1}`)
           .expect("status", 200)
-          .get(`${pokemonEndpoint}/${count + 1}`)
-          .expect("status", 404);
+          .expect("jsonTypesStrict", {
+            count: count,
+            next: null,
+            previous: null,
+            results: joi.array().length(count)
+          });
       });
   });
 });
