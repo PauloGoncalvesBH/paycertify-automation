@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:api & npm run test:audit",
+    "test": "npm run test:api & npm run test:security & npm run test:audit",
     "test:api": "jest test/api",
+    "test:security": "jest test/security",
     "test:audit": "lighthouse-ci --score=80 https://www.pokemon.com/us/pokedex/",
     "prettify": "prettier --write **/*.js  **/*.json --print-width 120"
   },
