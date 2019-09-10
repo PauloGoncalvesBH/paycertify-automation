@@ -4,6 +4,7 @@
 [![Audit library: lighthouse-ci](https://img.shields.io/badge/Audit%20library-lighthouse--ci-blue)](https://www.npmjs.com/package/lighthouse-ci)
 [![Runner: jest](https://img.shields.io/badge/runner-jest-yellow)](https://www.npmjs.com/package/jest)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://www.npmjs.com/package/prettier)
+[![dependency update info](https://david-dm.org/PauloGoncalvesBH/paycertify-automation.svg)](https://david-dm.org)
 
 Automation to QA Engineer position
 
@@ -51,3 +52,7 @@ npm install --production
 ```sh
 npm test
 ```
+
+---
+
+[MIT License](/LICENSE)
