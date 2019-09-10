@@ -48,7 +48,7 @@ xdescribe("Validate basic and advanced search", () => {
       Helper.click(Pokedex.dragonWeakness);
       Helper.click(Pokedex.searchButton);
 
-      Helper.waitForElementVisibility(Pokedex.msgNoPokemonMatchedYourSearch)
+      Helper.waitForElementVisibility(Pokedex.msgNoPokemonMatchedYourSearch);
       expect(Pokedex.pokemonCard.count()).toBeUndefined();
     });
 
@@ -58,7 +58,7 @@ xdescribe("Validate basic and advanced search", () => {
 
       expect(Pokedex.pokemonCard.count()).toBe(12);
       const bugAbility = element(by.cssContainingText(".abilities", "bug"));
-      expect(Pokedex.pokemonCard).toContain(bugAbility)
+      expect(Pokedex.pokemonCard).toContain(bugAbility);
     });
   });
 });
