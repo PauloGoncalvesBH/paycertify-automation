@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:api & npm run test:security & npm run test:audit",
+    "test": "npm run test:api & npm run test:security & npm run test:audit & npm run test:e2e",
     "test:api": "jest test/api",
     "test:security": "jest test/security",
     "test:audit": "lighthouse-ci --score=80 https://www.pokemon.com/us/pokedex/",
+    "pretest:e2e": "webdriver-manager update --gecko false",
+    "test:e2e": "protractor test/e2e/protractor.conf.js",
     "prettify": "prettier --write **/*.js  **/*.json --print-width 120"
   },
   "pre-commit": [
@@ -17,8 +19,11 @@
   "license": "MIT",
   "dependencies": {
     "frisby": "^2.1.2",
+    "jasmine-spec-reporter": "^4.2.1",
     "jest": "^24.9.0",
-    "lighthouse-ci": "^1.10.0"
+    "lighthouse-ci": "^1.10.0",
+    "protractor": "5.4.2",
+    "protractor-helper": "3.7.11"
   },
   "devDependencies": {
     "pre-commit": "^1.2.2",
